@@ -15,7 +15,7 @@ export async function validateApiSession(request: NextRequest) {
   const cookies = request.headers.get('cookie') || '';
   
   try {
-    const response = await fetch('https://hunt-auth-v3.onrender.com/api/auth/validate', {
+    const response = await fetch('http://localhost:3000/api/auth/validate', {
       method: 'GET',
       headers: {
         'Cookie': cookies,

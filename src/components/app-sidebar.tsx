@@ -1,8 +1,21 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Calendar, BarChart3, Users, Megaphone, UserCheck, Settings, LogOut, Hunt, Building2, DollarSign, Globe, Wallet, Zap } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
+import * as React from "react";
+import {
+  Calendar,
+  BarChart3,
+  Users,
+  Megaphone,
+  UserCheck,
+  Settings,
+  LogOut,
+  Building2,
+  DollarSign,
+  Globe,
+  Wallet,
+  Zap,
+} from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 import {
   Sidebar,
   SidebarContent,
@@ -15,7 +28,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 const data = {
   navigation: [
@@ -72,7 +85,7 @@ const data = {
       icon: Globe,
     },
   ],
-}
+};
 
 // Custom Hunt Logo Component
 function HuntLogo() {
@@ -83,37 +96,45 @@ function HuntLogo() {
       </div>
       <span className="font-semibold text-lg">Hunt</span>
     </div>
-  )
+  );
 }
 
 // User Profile Component
 function UserProfile() {
   const { user } = useAuth();
-  
+
   if (!user) return null;
-  
-  const initials = user.name ? user.name.split(' ').map(n => n[0]).join('').toUpperCase() : user.email[0].toUpperCase();
-  
+
+  const initials = user.name
+    ? user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+    : user.email[0].toUpperCase();
+
   return (
     <div className="flex items-center space-x-3 p-3 rounded-lg bg-sidebar-accent hover-float">
       <div className="w-10 h-10 bg-gradient-to-r from-chart-1 to-chart-2 rounded-full flex items-center justify-center">
         <span className="text-white font-semibold text-sm">{initials}</span>
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-sidebar-foreground">{user.name}</p>
+        <p className="text-sm font-medium text-sidebar-foreground">
+          {user.name}
+        </p>
         <p className="text-xs text-muted-foreground">{user.email}</p>
       </div>
     </div>
-  )
+  );
 }
 
 // Logout Button Component
 function LogoutButton() {
   const { logout } = useAuth();
-  
+
   return (
     <SidebarMenuButton asChild className="hover-float">
-      <button 
+      <button
         onClick={logout}
         className="flex items-center space-x-3 text-destructive w-full"
       >
@@ -121,16 +142,21 @@ function LogoutButton() {
         <span>Cerrar Sesión</span>
       </button>
     </SidebarMenuButton>
-  )
+  );
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="inset" className="border-r border-border/50" style={{ backgroundColor: '#0a0a0a' }} {...props}>
+    <Sidebar
+      variant="inset"
+      className="border-r border-border/50"
+      style={{ backgroundColor: "#0a0a0a" }}
+      {...props}
+    >
       <SidebarHeader className="p-4 border-b border-border/20">
         <HuntLogo />
       </SidebarHeader>
-      
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -169,10 +195,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      
+
       <SidebarFooter className="p-4 space-y-4">
         <SidebarSeparator />
-        
+
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="hover-float">
@@ -186,11 +212,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <LogoutButton />
           </SidebarMenuItem>
         </SidebarMenu>
-        
+
         <div className="mt-2">
           <UserProfile />
         </div>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

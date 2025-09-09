@@ -1,7 +1,37 @@
-import { Calendar, BarChart3, Users, Megaphone, UserCheck } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar, BarChart3, Users, Megaphone } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  // Check for auth directly in the RSC
+  const cookieStore = await cookies();
+  console.log("Cookie header:", cookieStore);
+
+  const session = await fetch(
+    // "https://hunt-auth-v3.onrender.com/api/auth/validate",
+    "http://localhost:3000/api/auth/validate",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookieStore.toString(),
+      },
+    }
+  );
+
+  const responseData = await session.json().catch(() => null);
+
+  if (!responseData?.authenticated) {
+    console.log(responseData);
+    redirect("http://localhost:3000/sign-in?redirect=http://localhost:3001");
+  }
+
   const stats = [
     {
       title: "Eventos Activos",
@@ -46,12 +76,16 @@ export default function Dashboard() {
         {stats.map((stat, index) => (
           <Card key={index} className="glassmorphism hover-float">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {stat.title}
+              </CardTitle>
               <stat.icon className={`h-4 w-4 ${stat.color}`} />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground">{stat.description}</p>
+              <p className="text-xs text-muted-foreground">
+                {stat.description}
+              </p>
             </CardContent>
           </Card>
         ))}
@@ -71,13 +105,11 @@ export default function Dashboard() {
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="glassmorphism col-span-3">
           <CardHeader>
             <CardTitle>Actividad Reciente</CardTitle>
-            <CardDescription>
-              Últimas acciones en el sistema
-            </CardDescription>
+            <CardDescription>Últimas acciones en el sistema</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -85,14 +117,18 @@ export default function Dashboard() {
                 <div className="w-2 h-2 bg-chart-1 rounded-full" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Nuevo evento creado</p>
-                  <p className="text-xs text-muted-foreground">Hace 2 minutos</p>
+                  <p className="text-xs text-muted-foreground">
+                    Hace 2 minutos
+                  </p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-chart-2 rounded-full" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Campaña activada</p>
-                  <p className="text-xs text-muted-foreground">Hace 15 minutos</p>
+                  <p className="text-xs text-muted-foreground">
+                    Hace 15 minutos
+                  </p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
