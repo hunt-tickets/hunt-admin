@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ColorPicker } from "@/components/profile/atomic/color-picker";
 import { ThemeSelector } from "@/components/profile/atomic/theme-selector";
 import { ImageUploader } from "@/components/profile/atomic/image-uploader";
+import { TicketPreview } from "@/components/profile/atomic/ticket-preview";
 import { useImageUpload } from "@/hooks/use-image-upload";
 import { useProducerSettings } from "@/hooks/use-producer-settings";
 import type { TabContentProps } from "@/types/tabs";
@@ -175,6 +176,26 @@ export function BrandingTab({ producerId, currentProducer }: TabContentProps) {
                 label="Banner"
                 description="Banner horizontal para encabezados (1200x400px recomendado)"
                 aspectRatio="banner"
+              />
+            </div>
+
+            {/* Ticket Preview Section */}
+            <div className="space-y-4">
+              <div className="border-t border-border-secondary py-4"></div>
+              <TicketPreview
+                producerId={producerId}
+                currentProducer={currentProducer}
+                brandingSettings={{
+                  theme: settings.theme,
+                  primaryColor: settings.primaryColor,
+                  logos: {
+                    main: previews.main,
+                    white: previews.white,
+                    black: previews.black,
+                    fullWhite: previews.fullWhite,
+                    fullBlack: previews.fullBlack
+                  }
+                }}
               />
             </div>
 

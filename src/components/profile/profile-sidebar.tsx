@@ -15,7 +15,8 @@ import {
   Wallet,
   ChevronRight,
   MailX,
-  Receipt
+  Receipt,
+  Mail
 } from "lucide-react";
 import { useProfileTab } from "@/contexts/profile-tab-context";
 import { ProfileSelector } from "./profile-selector";
@@ -37,6 +38,7 @@ const tabItems: TabItem[] = [
   { id: "politicas", label: "Políticas", icon: Shield },
   { id: "website", label: "Website", icon: Globe },
   { id: "emails-bloqueados", label: "Emails Bloqueados", icon: MailX },
+  { id: "plantillas-emails", label: "Plantillas Emails", icon: Mail },
   { id: "checkout-fees", label: "Tarifas de Checkout", icon: Receipt },
   { id: "settings", label: "Configuración", icon: Settings },
 ];

@@ -71,7 +71,7 @@ export function EmailsBloqueadosTab({ producerId, currentProducer }: TabContentP
   }
 
   return (
-    <div className="bg-surface-secondary backdrop-blur-xl border border-border-primary p-8 rounded-xl space-y-6">
+    <div className="bg-surface-secondary backdrop-blur-xl border border-border-primary p-8 rounded-lg space-y-6">
       <div>
         <h3 className="text-xl font-semibold text-text-primary">Emails Bloqueados</h3>
         <p className="text-text-secondary">
@@ -79,80 +79,73 @@ export function EmailsBloqueadosTab({ producerId, currentProducer }: TabContentP
         </p>
       </div>
 
-      {/* Add new banned email */}
-      <div className="bg-surface-elevated border border-border-secondary rounded-lg p-6">
-        <h4 className="text-lg font-medium text-text-primary mb-4">Agregar Email Bloqueado</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-text-primary">Email</label>
-            <Input
-              type="email"
-              value={newEmail}
-              onChange={(e) => setNewEmail(e.target.value)}
-              placeholder="usuario@ejemplo.com"
-              className="glassmorphism-input w-full h-12"
-            />
-            {newEmail && !isValidEmail(newEmail) && (
-              <p className="text-xs text-red-400 flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                Email inválido
-              </p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-text-primary">Razón (Opcional)</label>
-            <Input
-              value={newReason}
-              onChange={(e) => setNewReason(e.target.value)}
-              placeholder="Motivo del bloqueo"
-              className="glassmorphism-input w-full h-12"
-            />
-          </div>
+      {/* Simple add form */}
+      <div className="flex gap-3 items-end">
+        <div className="flex-1">
+          <label className="text-sm font-medium text-text-primary block mb-2">Email</label>
+          <Input
+            type="email"
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}
+            placeholder="usuario@ejemplo.com"
+            className="w-full h-12 px-4 bg-surface-elevated border border-border-primary rounded-lg text-text-primary placeholder-text-tertiary focus:outline-none focus:ring-2 focus:ring-border-primary focus:border-border-primary transition-all duration-200 text-sm"
+          />
+          {newEmail && !isValidEmail(newEmail) && (
+            <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+              <AlertCircle className="w-3 h-3" />
+              Email inválido
+            </p>
+          )}
+        </div>
+        <div className="flex-1">
+          <label className="text-sm font-medium text-text-primary block mb-2">Razón (Opcional)</label>
+          <Input
+            value={newReason}
+            onChange={(e) => setNewReason(e.target.value)}
+            placeholder="Motivo del bloqueo"
+            className="w-full h-12 px-4 bg-surface-elevated border border-border-primary rounded-lg text-text-primary placeholder-text-tertiary focus:outline-none focus:ring-2 focus:ring-border-primary focus:border-border-primary transition-all duration-200 text-sm"
+          />
         </div>
         <Button
           onClick={handleAddEmail}
           disabled={loading || !newEmail.trim() || !isValidEmail(newEmail)}
-          className="bg-interactive-primary text-text-inverse hover:bg-interactive-active font-medium disabled:opacity-50 px-4"
+          className="bg-interactive-primary text-text-inverse hover:bg-interactive-active font-medium disabled:opacity-50 px-6 h-12"
         >
           <Plus className="w-4 h-4 mr-2" />
-          {loading ? 'Agregando...' : 'Agregar Email'}
+          {loading ? 'Agregando...' : 'Agregar'}
         </Button>
       </div>
 
-      {/* Banned emails list */}
-      <div className="bg-surface-elevated border border-border-secondary rounded-lg">
-        <div className="p-6 border-b border-border-secondary">
-          <div className="flex items-center gap-2">
-            <Mail className="w-5 h-5 text-text-secondary" />
-            <h4 className="text-lg font-medium text-text-primary">
-              Lista de Emails Bloqueados ({bannedEmails.length})
-            </h4>
-          </div>
+      {/* Simple list */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 mb-4">
+          <Mail className="w-5 h-5 text-text-secondary" />
+          <h4 className="text-lg font-medium text-text-primary">
+            Lista de Emails Bloqueados ({bannedEmails.length})
+          </h4>
         </div>
         
         {bannedEmails.length === 0 ? (
-          <div className="p-8 text-center">
+          <div className="text-center py-8">
             <Mail className="w-12 h-12 text-text-tertiary mx-auto mb-4" />
             <p className="text-text-secondary">No hay emails bloqueados</p>
           </div>
         ) : (
-          <div className="divide-y divide-border-secondary">
+          <div className="space-y-2">
             {bannedEmails.map((email) => (
-              <div key={email.id} className="p-6 flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-red-500/10 rounded-full flex items-center justify-center">
-                      <Mail className="w-4 h-4 text-red-400" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-text-primary">{email.email}</p>
-                      {email.reason && (
-                        <p className="text-sm text-text-secondary">{email.reason}</p>
-                      )}
-                      <p className="text-xs text-text-tertiary">
-                        Bloqueado el {email.createdAt.toLocaleDateString('es-ES')}
-                      </p>
-                    </div>
+              <div key={email.id} className="bg-surface-elevated border border-border-secondary rounded-lg p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-red-500/10 rounded-full flex items-center justify-center">
+                    <Mail className="w-4 h-4 text-red-400" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-text-primary">{email.email}</p>
+                    {email.reason && (
+                      <p className="text-sm text-text-secondary">{email.reason}</p>
+                    )}
+                    <p className="text-xs text-text-tertiary">
+                      Bloqueado el {email.createdAt.toLocaleDateString('es-ES')}
+                    </p>
                   </div>
                 </div>
                 <Button

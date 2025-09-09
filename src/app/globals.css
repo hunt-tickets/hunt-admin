@@ -289,7 +289,7 @@ select,
 textarea,
 .glassmorphism-input {
   border: 1px solid var(--border-secondary) !important;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 input[type="text"]:hover, 

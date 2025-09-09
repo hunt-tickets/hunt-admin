@@ -15,7 +15,8 @@ export type TabId =
   | 'website'
   | 'settings'
   | 'emails-bloqueados'
-  | 'checkout-fees';
+  | 'checkout-fees'
+  | 'plantillas-emails';
 
 export interface VerticalTabsProps {
   defaultTab?: TabId;

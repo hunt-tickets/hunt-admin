@@ -7,6 +7,7 @@ import { BrandingTab } from "@/components/profile/tabs/branding-tab";
 import { PoliticasTab } from "@/components/profile/tabs/politicas-tab";
 import { WebsiteTab } from "@/components/profile/tabs/website-tab";
 import { EmailsBloqueadosTab } from "@/components/profile/tabs/emails-bloqueados-tab";
+import { PlantillasEmailsTab } from "@/components/profile/tabs/plantillas-emails-tab";
 import { CheckoutFeesTab } from "@/components/profile/tabs/checkout-fees-tab";
 import { SettingsTab } from "@/components/profile/tabs/settings-tab";
 import type { TabId, TabContentProps } from "@/types/tabs";
@@ -32,6 +33,8 @@ export function TabContentRenderer({ activeTab, producerId, currentProducer }: T
         return <WebsiteTab {...commonProps} />;
       case "emails-bloqueados":
         return <EmailsBloqueadosTab {...commonProps} />;
+      case "plantillas-emails":
+        return <PlantillasEmailsTab {...commonProps} />;
       case "checkout-fees":
         return <CheckoutFeesTab {...commonProps} />;
       case "settings":

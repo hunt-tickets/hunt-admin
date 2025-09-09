@@ -94,10 +94,9 @@ export function CheckoutFeesTab({ producerId, currentProducer }: TabContentProps
               <label className="text-sm font-medium text-text-primary">Porcentaje</label>
               <div className="relative">
                 <Input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  max="100"
+                  type="text"
+                  inputMode="decimal"
+                  pattern="[0-9]*\.?[0-9]*"
                   value={settings.transactionPercentage}
                   onChange={(e) => updateSetting('transactionPercentage', e.target.value)}
                   placeholder="0.00"
@@ -113,9 +112,9 @@ export function CheckoutFeesTab({ producerId, currentProducer }: TabContentProps
               <label className="text-sm font-medium text-text-primary">Monto Fijo</label>
               <div className="relative">
                 <Input
-                  type="number"
-                  step="0.01"
-                  min="0"
+                  type="text"
+                  inputMode="decimal"
+                  pattern="[0-9]*\.?[0-9]*"
                   value={settings.transactionFixedAmount}
                   onChange={(e) => updateSetting('transactionFixedAmount', e.target.value)}
                   placeholder="0.00"
@@ -190,10 +189,9 @@ export function CheckoutFeesTab({ producerId, currentProducer }: TabContentProps
                   <label className="text-sm font-medium text-text-primary">Monto</label>
                   <div className="relative">
                     <Input
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      max="100"
+                      type="text"
+                      inputMode="decimal"
+                      pattern="[0-9]*\.?[0-9]*"
                       value={settings.taxAmount}
                       onChange={(e) => updateSetting('taxAmount', e.target.value)}
                       placeholder="0.00"
